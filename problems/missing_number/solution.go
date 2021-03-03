@@ -1,5 +1,3 @@
-
-
 func missingNumber(nums []int) int {
 	sort.Ints(nums)
 	if nums[0] != 0 {
