@@ -1,9 +1,16 @@
-import "sort"
-
 func sortedSquares(nums []int) []int {
-	for i := 0; i < len(nums); i++ {
-		nums[i] = nums[i]*nums[i]
+	result := []int{}
+	left := 0
+	right := len(nums) - 1
+	for left <= right {
+        l,r := nums[left]*nums[left] , nums[right]*nums[right]
+		if l > r {
+			result = append([]int{l} , result...)
+			left++
+		}else{
+			result = append([]int{r} , result...)
+			right--
+		}
 	}
-	sort.Ints(nums)
-	return nums
+	return result
 }
