@@ -1,17 +1,22 @@
 func isUnivalTree(root *TreeNode) bool {
+
 	same := root
 	stack := []*TreeNode{root}
-	for len(stack) > 0 {
-		value := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
-		if value != nil {
-			if same.Val != value.Val {
-				return false
-			}
-			stack = append(stack, value.Left, value.Right)
-		}
-
-	}
-	return true
+    for len(stack) != 0{
+        n := stack[0]
+        stack =stack[1:]
+        
+        if n.Val != same.Val && n != nil{
+            
+            return false
+        }
+        if n.Right != nil{
+            stack = append(stack,n.Right)
+        }
+        if n.Left != nil{
+            stack = append(stack,n.Left)
+        }
+    }
+    return true
 
 }
