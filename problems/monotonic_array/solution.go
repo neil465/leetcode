@@ -1,22 +1,20 @@
-import "sort"
+
 
 func isMonotonic(A []int) bool {
-	res := []int{}
-	for i := 0; i < len(A); i++ {
-        if i+1 < len(A) && A[i] > A[i+1] {
-			res = append(res,1)
-		}
-
-		if i+1 < len(A) && A[i] < A[i+1] {
-			res = append(res,0)
-		}
-
-	}
-	sort.Ints(res)
-	for i := 0; i < len(A); i++ {
-		if i+1 < len(res) && res[i] != res[i+1]{
-			return false
-		}
-	}
+    flag := -1
+    for i:= 0 ; i < len(A)-1 ; i++{
+        if flag == -1 && A[i] > A[i+1]{
+            flag = 1
+        }
+        if flag == -1 && A[i] < A[i+1]{
+            flag = 0
+        }
+        if flag == 0 && A[i] > A[i+1]{
+            return false
+        }
+        if flag == 1 && A[i] < A[i+1]{
+            return false
+        }
+    }
 	return true
 }
