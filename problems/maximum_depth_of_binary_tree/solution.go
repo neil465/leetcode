@@ -7,29 +7,20 @@
  * }
  */
 func maxDepth(root *TreeNode) int {
-    if root == nil{return 0}
-    q := []*TreeNode{root}
+    if root == nil{
+        return 0
+    }
     level := 1
-    helper(q,&level)
+    q := []*TreeNode{root}
+    for len(q) > 0{
+        arr := []*TreeNode{}
+        for _,i := range q{
+            if i.Left != nil {arr = append(arr,i.Left)}
+            if i.Right != nil {arr = append(arr,i.Right)}
+        }
+        if len(arr) > 0{level++}
+        q = arr
+    }
     return level
 
-}
-func helper (q []*TreeNode , level *int){
-    arr := []*TreeNode{}
-    for len(q) > 0 {
-        pop := q[0]
-        q = q[1:]
-        if pop.Left != nil{
-            arr= append(arr,pop.Left)
-        }
-        if pop.Right != nil{
-            arr= append(arr,pop.Right)
-        }
-        
-    }
-    if len(arr)> 0{
-        *level++
-        helper(arr,level)
-    }
-    
 }
