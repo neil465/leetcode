@@ -4,16 +4,25 @@ type NumArray struct {
 
 
 func Constructor(nums []int) NumArray {
-    return NumArray{nums}   
+    if len(nums) == 0 {
+        return NumArray{[]int{}}
+    }
+    
+    sums := make([]int, len(nums))
+    sums[0] = nums[0]
+    for i := 1; i < len(nums); i++ {
+        sums[i] = sums[i-1] + nums[i]
+    }
+    return NumArray{sums}
 }
 
 
 func (this *NumArray) SumRange(left int, right int) int {
-    sum := 0
-    for i := left ; i <=right; i++{
-        sum += this.a[i]
+
+    if left == 0{
+        return this.a[right]
     }
-    return sum
+    return this.a[right] - this.a[left-1]
 }
 
 
