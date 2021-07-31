@@ -1,75 +1,31 @@
-type mHeap struct {
-	a []int
-}
-
+import ("container/heap")
 func connectSticks(sticks []int) int {
- 
-    m := &mHeap{}
+    m := &IntHeap{}
+    heap.Init(m)
     sum := 0
     for _,i := range sticks{
-        m.Insert(i)
+        heap.Push(m,i)
     }
-    for len(m.a) > 1{
+    for m.Len() > 1{
 
-        a := m.Pop()
-        b := m.Pop()
-        sum += a+b
-        m.Insert(a+b)
+        a := heap.Pop(m)
+        b := heap.Pop(m)
+        sum += a.(int)+b.(int)
+        heap.Push(m,a.(int)+b.(int))
    
     }
-    return   sum
+    return sum
 }
 
-func (h *mHeap) Pop() int{
-	poped := h.a[0]
-	l := len(h.a)-1
-	h.a[0] = h.a[l]
-	h.a = h.a[:l]
-	h.HeapifyDown(0)
-	return poped
-}
-func (h *mHeap) HeapifyDown(index int) {
-    
-	lastIndex := len(h.a) - 1
-	l, r := Left(index), Right(index)
-	Min := 0
+type IntHeap []int
 
-
-	for l <= lastIndex {
-		if l == lastIndex {
-			Min = l
-		} else if h.a[l] > h.a[r] {
-			Min = r
-		} else {
-			Min = l
-		}
-		if h.a[index] > h.a[Min] {
-			h.swap(index, Min)
-			index = Min
-			l, r = Left(index), Right(index)
-		} else {return}
-
-	}
+func (h IntHeap) Len() int           { return len(h) }
+func (h IntHeap) Less(i, j int) bool { return h[i] < h[j] }
+func (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *IntHeap) Pop() interface{} {
+    old := *h
+    pop := old[len(old)-1]
+    *h = old[:len(old)-1]
+    return pop
 }
-func (h *mHeap) Insert(key int){
-	h.a = append(h.a,key)
-	h.HeapifyUp(len(h.a)-1)
-}
-func (h *mHeap) HeapifyUp(index int)  {
-	for h.a[Parent(index)] > h.a[index]{
-		h.swap(index,Parent(index))
-		index = Parent(index)
-	}
-}
-func Parent(index int) int{
-	return (index-1)/2
-}
-func Left(index int) int{
-	return index*2 +1
-}
-func Right(index int) int{
-	return index*2 +2
-}
-func (h *mHeap) swap(i,i2 int) {
-	h.a[i] , h.a[i2] = h.a[i2] , h.a[i]
-}
+func (h *IntHeap) Push(x interface{}) {*h = append(*h, x.(int))}
