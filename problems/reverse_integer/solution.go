@@ -1,87 +1,21 @@
-// import (
-// 	"fmt"
-// 	"strconv"
-// )
-// func reverse(x int) int {
-// 	b := 0
-// 	if x < 0 {
-
-// 		b = x
-// 		x *= -1
-
-// 	}
-// 	if x == 0 {
-// 		return 0
-// 	}
-// 	i := []int{}
-// 	for x > 0 {
-// 		i = append(i, x%10)
-// 		x = x / 10
-// 	}
-// 	res := ""
-// 	for _, i3 := range i {
-
-// 		res += fmt.Sprint(i3)
-
-// 	}
-// 	if b < 0 {
-// 		res = "-" + res
-
-// 	}
-
-// 	n, _ := strconv.Atoi(res)
-// 	if n < -2147483648 {
-// 		return 0
-// 	}
-// 	if n > 2147483647 {
-// 		return 0
-// 	}
-// 	return n
-// }
-package main
-
-import (
-	"fmt"
-	"strconv"
-)
-
-
+import "math"
 func reverse(x int) int {
-	if x == 0 {
-		return 0
-	}
+   
 
-	original := 0
-	if x < 0 {
-		original = x
-		x *= -1
-	}
+    res := 0
+    flag := 1
+    if x < 0 {
+        flag = -1
+        x *= -1     
+    }
+    count :=int(math.Pow(float64(10),float64((int(math.Log10(float64(x)))))))
+    
+    for x > 0{
+        res += (x%10)*count
+        count /= 10
+        x /= 10
+    }
+    if res*flag >= 2147483647 || res*flag <= -2147483648{return 0}
 
-	ints := []int{}
-	for x > 0 {
-		ints = append(ints, x%10)
-		x = x / 10
-	}
-
-	res := ""
-	for _, i3 := range ints {
-		res += fmt.Sprint(i3)
-
-	}
-	if original < 0 {
-		res = "-" + res
-	}
-
-	n, _ := strconv.Atoi(res)
-
-	if n < -2147483648 {
-		return 0
-	}
-	
-	if n > 2147483647 {
-		return 0
-	}
-
-	return n
-}
-
+    return res*flag
+}	
