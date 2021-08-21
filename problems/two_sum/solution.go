@@ -1,11 +1,12 @@
 func twoSum(nums []int, target int) []int {
-	mappy := make(map[int]int)
-	for i := 0; i < len(nums); i++ {
-		if _, ok := mappy[nums[i]]; ok {
-			return []int{mappy[nums[i]],i}
-		}else{
-			mappy[(target-nums[i])] = i
-		}
-	}
-	return []int{}
+    m := make(map[int]int)
+    for i,j := range nums{
+
+        if _, found := m[target-j]; found {
+            return []int{m[target-j],i}
+        }
+        m[j] = i
+    }
+    return []int{}
+    
 }
