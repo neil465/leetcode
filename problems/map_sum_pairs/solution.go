@@ -5,7 +5,8 @@ type MapSum struct {
 
 /** Initialize your data structure here. */
 func Constructor() MapSum {
-    return MapSum{m : make(map[string]int)}
+    a := make(map[string]int)
+    return MapSum{a}
 }
 
 
@@ -15,11 +16,11 @@ func (this *MapSum) Insert(key string, val int)  {
 
 
 func (this *MapSum) Sum(prefix string) int {
-    sum := 0
-    for i,_ := range this.m{
-        if strings.HasPrefix(i,prefix){
-            sum+= this.m[i]
-        }
+    sum:= 0
+    for j,i := range this.m{
+        if strings.HasPrefix(j, prefix){
+            sum+= i
+        } 
     }
     return sum
 }
