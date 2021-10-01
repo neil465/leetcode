@@ -1,17 +1,16 @@
-
 func search(nums []int, target int) int {
-	low, mid, hi := 0, 0, len(nums)-1
-    
-	for low <= hi {
-		mid = low + (hi-low)/2
-		if  nums[mid] == target {
-			return mid
-		}else if  nums[mid] < target {
-			low = mid+1
-		} else {
-			hi = mid - 1
-		}
-	}
-    
-	return -1
+    l,r := 0,len(nums)-1
+    mid := l + ((r - l) / 2)
+    if nums[0] == target{return 0}
+    if nums[len(nums)-1] == target{return len(nums)-1}
+    if nums[mid]  == target{return mid}
+    for l<r-1{
+        
+        if nums[mid] < target{l=mid}
+        if nums[mid]  > target{r=mid}
+        mid = l + ((r - l) / 2)
+        if nums[mid]  == target{return mid}
+    }
+    return -1
+
 }
