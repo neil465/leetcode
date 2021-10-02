@@ -1,16 +1,20 @@
 func sortedSquares(nums []int) []int {
-	result := []int{}
-	left := 0
-	right := len(nums) - 1
-	for left <= right {
-        l,r := nums[left]*nums[left] , nums[right]*nums[right]
-		if l > r {
-			result = append([]int{l} , result...)
-			left++
-		}else{
-			result = append([]int{r} , result...)
-			right--
-		}
-	}
-	return result
-}
+    if len(nums) == 1{
+        nums[0] = nums[0]*nums[0]
+        return nums
+    }
+    k := make([]bool , len(nums))
+    sort.Slice(nums,func(i,j int)bool{
+        if k[i] != true{
+            nums[i] = nums[i]*nums[i]            
+            k[i] = true
+        }
+        if k[j] != true{
+            nums[j] = nums[j]*nums[j]
+            k[j] = true
+        }
+        
+        return nums[i]< nums[j]
+    })
+    return nums
+}   
