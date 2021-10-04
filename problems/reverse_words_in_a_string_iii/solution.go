@@ -1,14 +1,12 @@
-import "strings"
-
 func reverseWords(s string) string {
-	res := ""
-	splits := strings.Split(s, " ")
-	for _, i2 := range splits {
-		sum := ""
-		for _, i3 := range i2 {
-			sum = string(i3) + sum
-		}
-		res += sum + " "
-	}
-	return strings.TrimRight(res," ")
+    a := strings.Fields(s)
+    for l,k := range a{
+        runes := []rune(k)
+        for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+            runes[i], runes[j] = runes[j], runes[i]
+        }
+        a[l] = string(runes)
+    }
+    s=strings.Join(a," ")
+    return s
 }
