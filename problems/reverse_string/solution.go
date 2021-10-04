@@ -1,10 +1,9 @@
-func reverseString(s []byte) {
-
-	right := len(s)-1
-	left := 0
-	for right > left {
-		s[right], s[left] = s[left], s[right]
-		right --
-		left ++
-	}
+func reverseString(s []byte)  {
+    l,r := 0,len(s)-1
+    for l <= r{
+        s[l],s[r] = s[r],s[l]
+        l++
+        r--
+    }
+    
 }
