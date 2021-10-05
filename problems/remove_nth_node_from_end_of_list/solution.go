@@ -6,37 +6,14 @@
  * }
  */
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-    if n == 0 || head == nil{
-        return head
-    }
-    if head.Next == nil{
-        return nil
-    }
+    m := make(map[int]*ListNode)
+    curr , count := head,0
     
-    count := 1
-    c := head
-    val := 1
-    
-    for c != nil{
-        c = c.Next
-        val++
+    for curr != nil{
+        m[count] = curr
+        curr,count = curr.Next , count+1 
     }
-    fmt.Println(val)
-    if n == val-1{
-        head = head.Next
-        return head
-    }
-    val -= n+1
-    
-    cur := head
-    for cur != nil{
-        if count == val{
-            cur.Next = cur.Next.Next
-            return head
-        }
-        count ++
-        cur = cur.Next
-    }
+    if m[len(m)-1-n+1] == head{return head.Next}
+    m[len(m)-1-n].Next = m[len(m)-1-n+2]
     return head
-    
 }
