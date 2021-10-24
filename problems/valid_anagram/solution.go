@@ -1,18 +1,16 @@
-
-import (
-	"sort"
-	"strings"
-)
-
 func isAnagram(s string, t string) bool {
-	bytearrays := strings.Split(s, "")
-	sort.Strings(bytearrays)
-	bytearrays2 := strings.Split(t, "")
-	sort.Strings(bytearrays2)
-	string1 := strings.Join(bytearrays,"")
-	string2 := strings.Join(bytearrays2,"")
-	if string1 == string2 {
-		return true
-	}
-	return false
+    l := [26]int{}
+    for _,i := range s{
+        l[int(i-'a')]++
+    }
+    for _,i := range t{
+        l[int(i-'a')]--
+        if l[int(i-'a')] < 0{return false}
+    }
+    for _,i := range l{
+        if i != 0{
+            return false
+        }
+    }
+    return true
 }
