@@ -1,15 +1,10 @@
 func fib(n int) int {
-    
-    pprev := 0
-    prev := 1
-    if n == 0{
-        return 0
+    a1,a2:= 0 ,1
+    if n <2 {return n}
+    for i := 1; i < n ; i++{
+        sum := a1+a2
+        a1 = a2
+        a2 = sum
     }
-    for i := 0 ; i< n-1; i++{
-        sum := pprev + prev
-        pprev = prev
-        prev = sum
-    }
-    return prev
-    
+    return a2
 }
