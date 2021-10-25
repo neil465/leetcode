@@ -1,58 +1,50 @@
-type Node struct{
-    children [26]*Node
-    isEnd bool
-}
 type Trie struct {
-    root *Node
+    children [26]*Trie
+    End bool
 }
 
 
-/** Initialize your data structure here. */
 func Constructor() Trie {
-    return Trie{root:&Node{}}
+
+    return Trie{End:false}
 }
 
 
-/** Inserts a word into the trie. */
 func (this *Trie) Insert(word string)  {
-    currNode := this.root
-    for i := 0 ; i < len(word) ; i++{
-		charIndex := word[i] - 'a'
-        
-		if currNode.children[charIndex] == nil{currNode.children[charIndex] = &Node{}}
-		currNode = currNode.children[charIndex]
-	}
-    currNode.isEnd = true
+    c := this
+    for _,i := range word{
+        index := i-'a'
+        if c.children[index] == nil{
+            c.children[index] = &Trie{}
+        }
+        c = c.children[index]
+    }
+    c.End = true
 }
 
 
-/** Returns if the word is in the trie. */
 func (this *Trie) Search(word string) bool {
-    currNode := this.root
-    
-	for i := 0 ; i < len(word) ; i ++{
-		charIndex := word[i]-'a'
-		if currNode.children[charIndex] == nil{return false}
-		currNode = currNode.children[charIndex]
-	}
-    
-    if currNode.isEnd == true{return true}
-    return false
+    c := this
+    for _,i := range word{
+        index := i-'a'
+        if c.children[index] == nil{
+            return false
+        }
+        c = c.children[index]
+    }
+    return c.End
 }
 
 
-/** Returns if there is any word in the trie that starts with the given prefix. */
 func (this *Trie) StartsWith(prefix string) bool {
-    currNode := this.root
-    count := 0
-	for i := 0 ; i < len(prefix) ; i ++{
-		count++
-        charIndex := prefix[i]-'a'
-		if currNode.children[charIndex] == nil{return false}
-		currNode = currNode.children[charIndex]
-        
-        if count == len(prefix){return true}
-	}
+    c := this
+    for _,i := range prefix{
+        index := i-'a'
+        if c.children[index] == nil{
+            return false
+        }
+        c = c.children[index]
+    }
     return true
 }
 
