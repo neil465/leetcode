@@ -9,7 +9,7 @@ func (this *unionFind) Find(x int) int {
 	}
 
 	this.parents[x] = this.Find(this.parents[x])
-	return this.parents[x]
+	return this.parents[x] 
 }
 
 func (this *unionFind) Union(x int, y int) {
@@ -21,6 +21,7 @@ func (this *unionFind) Union(x int, y int) {
 	this.count--
 	this.parents[rx] = ry
 }
+
 
 
 func findCircleNum(isConnected [][]int) int {
