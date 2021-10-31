@@ -7,5 +7,5 @@
  * }
  */
 func countNodes(root *TreeNode) int {
-    if root != nil { return 1 + countNodes(root.Right) + countNodes(root.Left) }else{return 0}
+    if root == nil{return 0}else{return 1 + countNodes(root.Left)+countNodes(root.Right)}
 }
