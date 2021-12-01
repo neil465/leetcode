@@ -5,32 +5,32 @@
  *     Next *ListNode
  * }
  */
+var res *ListNode
+var cur *ListNode
+
 func mergeKLists(lists []*ListNode) *ListNode {
-    if  len(lists) ==0 {
-        return nil
-    }
-    for len(lists) > 1{
-        a,b := lists[0],lists[1]
-        lists =  lists[2:]
-        merged := mergeTwoLists(a,b)
-        
-        t := []*ListNode{merged}
-        
-        lists = append(t, lists...)
-    }
-    return lists[0]
+    return helper(lists,res,cur)
 }
-func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
-	if l1 == nil {
-		return l2
-	}
-	if l2 == nil {
-		return l1
-	}
-	if l1.Val < l2.Val {
-		l1.Next = mergeTwoLists(l1.Next, l2)
-		return l1
-	}
-	l2.Next = mergeTwoLists(l1, l2.Next)
-	return l2
+func helper(lists []*ListNode , res *ListNode , cur *ListNode) *ListNode{
+    removeIndex := -1
+    for nodeIndex ,node := range lists{
+        if removeIndex== -1 && node != nil{
+            removeIndex = nodeIndex
+        }else if node != nil && node.Val < lists[removeIndex].Val{
+            removeIndex = nodeIndex
+        }
+    }
+    if removeIndex == -1{
+        return res
+    }
+    if res == nil {
+        res = lists[removeIndex]
+        cur = res
+    }else{
+        cur.Next = lists[removeIndex]
+        cur = cur.Next
+    }
+    lists[removeIndex] = lists[removeIndex].Next
+    helper(lists,res,cur)
+    return res
 }
