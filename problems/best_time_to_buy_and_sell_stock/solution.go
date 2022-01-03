@@ -1,0 +1,2 @@
+func maxProfit(prices []int) int {max := 0;minimax := 0;pos := 0 ;for i := 1 ; i < len(prices) ; i++{if prices[i] - prices[pos] < 0{pos = i};minimax = prices[i] - prices[pos];max = maximum(max,minimax)};return max}
+func maximum(i,j int) int{if i > j {return i };return j}
