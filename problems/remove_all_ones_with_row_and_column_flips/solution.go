@@ -1,22 +1,17 @@
 func removeOnes(grid [][]int) bool {
-    for _,i := range grid{
-        if i[0] == 1 {
-            for k := range i {
-                i[k] = 1-i[k]
-            }
-        }
+    row  := grid[0]
+    invertrow := make([]int, len(row))
+    copy(invertrow, row)
+    for i := range invertrow{
+        invertrow[i] = 1-invertrow[i]
     }
-    for j,i := range grid[0]{
-        if i == 1 {
-            for k := range grid {
-                grid[k][j] = 1-grid[k][j]
-            }
-        }
-    }
-    for _,i := range grid{
-        for _,j := range i{
-            if j == 1{return false}
+    fmt.Println(row)
+    fmt.Println(invertrow)
+    for _,i := range grid {
+        if !reflect.DeepEqual(i, row) && !reflect.DeepEqual(i, invertrow){
+            return false
         }
     }
     return true
+    
 }
