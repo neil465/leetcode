@@ -7,26 +7,26 @@
  */
 func pairSum(head *ListNode) int {
     maxSum := 0
+    i := -1
     var stack []int
     var slow = head
     var fast = head
+    
     for slow != nil {
         if fast != nil {
             stack = append(stack,slow.Val)
-            slow = slow.Next
-            fast = fast.Next
-            if fast != nil {
-                fast = fast.Next
-            }
+            fast = fast.Next.Next
+            i++
         }else{
-            if stack[len(stack)-1] + slow.Val > maxSum{
-                maxSum = stack[len(stack)-1] + slow.Val
-            } 
-            slow = slow.Next 
-            stack = stack[:len(stack)-1]
+            var pop = stack[i]
+            if pop + slow.Val > maxSum{
+                maxSum = pop + slow.Val
+            }     
+            i --
         }
+        slow = slow.Next
         
     }
-    return maxSum
     
+    return maxSum
 }
