@@ -30,7 +30,7 @@ func wordPattern(pattern string, s string) bool {
 		} else {
 			wordTable[w] = string(pattern[i])
 		}
-		fmt.Println(patternTable, wordTable)
+
 
 	}
 
