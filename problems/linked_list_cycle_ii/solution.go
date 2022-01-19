@@ -6,17 +6,24 @@
  * }
  */
 func detectCycle(head *ListNode) *ListNode {
-    m := make(map[*ListNode]bool)
-    if head == nil || head .Next == nil{
-        return nil
-    }
-    curr := head
-    for curr != nil{
-        if m[curr] == true{
-            return curr
+    slow,fast := head,head
+    visited := map[*ListNode]bool{}
+    for fast != nil{
+        
+        
+        visited[slow] = true
+        slow = slow.Next
+        fast = fast.Next
+        if visited[fast] {
+            return fast
         }
-        m[curr] = true
-        curr = curr.Next
+        if fast != nil{
+            fast = fast.Next
+        }
+        if visited[fast] {
+            return fast
+        }
+        
     }
     return nil
 }
