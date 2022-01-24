@@ -1,23 +1,18 @@
 func detectCapitalUse(word string) bool {
-    if len(word) <= 1{
-        return true
-    }
-    k := 0
-    flag := true
-    if unicode.IsLower(rune(word[0])) {
-        flag = false
-    }
-    if unicode.IsLower(rune(word[0])) == false && unicode.IsLower(rune(word[1])){
-        k = 1
-        flag = false
-    }
-    
-    for i := k  ; i <len(word) ; i++{
-        if flag == true && unicode.IsLower(rune(word[i])){
-            return false
+    uppercase := false
+    lowercase := false
+    for i,letter := range word{
+        if unicode.IsUpper(letter) && i != 0{
+            uppercase = true
+            if lowercase{
+                return false
+            }
         }
-        if flag == false && unicode.IsLower(rune(word[i])) == false{
-            return false
+        if unicode.IsLower(letter) {
+            lowercase = true
+            if uppercase{
+                return false
+            }
         }
     }
     return true
