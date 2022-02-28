@@ -1,8 +1,8 @@
 func uniquePaths(m int, n int) int {
-    return pathFinder(m,n, map[[2]int]int{})
+    return pathFinder(m,n, map[string]int{})
 }
-func pathFinder(m int, n int, dp map[[2]int]int) int {
-    var pos = [2]int{ m, n }
+func pathFinder(m int, n int, dp map[string]int) int {
+    var pos = fmt.Sprint(m) + "," + fmt.Sprint(n)
     
     if (m == 1 || n == 1 ) || dp[pos] > 0 {
         return dp[pos] + 1 
