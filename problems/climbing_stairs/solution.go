@@ -1,13 +1,16 @@
+var dp []int
+
 func climbStairs(n int) int {
-      pprev := 1
-    prev := 1
-    if n == 0{
-        return 0
+    dp = make([]int, n + 1)
+    return calClimb(n)
+}
+func calClimb(n int) int {
+    if n < 0 { 
+        return 0 
     }
-    for i := 0 ; i< n-1; i++{
-        sum := pprev + prev
-        pprev = prev
-        prev = sum
+    if n == 0 || dp[n] > 0  {
+        return dp[n] + 1
     }
-    return prev
+    dp[n] = calClimb(n - 1) + calClimb(n - 2) - 1
+    return dp[n] + 1
 }
