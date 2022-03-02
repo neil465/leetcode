@@ -1,10 +1,18 @@
+var dp []int
+
 func fib(n int) int {
-    a1,a2:= 0 ,1
-    if n <2 {return n}
-    for i := 1; i < n ; i++{
-        sum := a1+a2
-        a1 = a2
-        a2 = sum
+    dp = make([]int, n+1)
+    return calculate(n)
+}
+func calculate(n int) int {
+    if n < 2 || dp[n] > 0 {
+        if n == 0 {
+            return 0
+        }
+        return dp[n] + 1
     }
-    return a2
+    
+    dp[n] = calculate(n-1) + calculate(n-2) - 1
+    
+    return dp[n] + 1
 }
