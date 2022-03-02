@@ -1,12 +1,18 @@
+var dp []int
+
 func tribonacci(n int) int {
-    a,b,c := 0,1,1
-    if n == 2{return 1}
-    if n <3{return n}
-    for i := 2 ; i < n ; i++{
-        sum := a+b+c
-        a =b 
-        b= c
-        c = sum
+    dp = make([]int, n+1)
+    return calculate(n)
+}
+func calculate(n int) int {
+    if n < 3 || dp[n] > 0 {
+        if n == 0 {
+            return 0
+        }
+        return dp[n] + 1
     }
-    return c
+    
+    dp[n] = calculate(n - 1) + calculate(n - 2) + calculate(n - 3) - 1
+    
+    return dp[n] + 1
 }
