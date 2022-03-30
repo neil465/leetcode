@@ -1,10 +1,21 @@
 func searchMatrix(matrix [][]int, target int) bool {
-    for j,i := range matrix[0]{
-        if i > target{return false}
-        for _,i := range matrix{
-            if i[j] > target{break}
-            if i[j] == target{return true}
+    i,j := 0 , 0 
+    oldi,oldj := -1,-1
+    for i != oldi || j != oldj{
+        oldi , oldj = i,j
+        if i != len(matrix)-1 && target >= matrix[i+1][j]{
+            i++
+        } else if j != len(matrix[0])-1 && target >= matrix[i][j+1]{
+            j++
         }
+        if matrix[i][j] == target{
+            return true
+        }
+        
+        
+    }
+    if matrix[i][j] == target{
+        return true
     }
     return false
 }
