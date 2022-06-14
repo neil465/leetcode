@@ -6,19 +6,17 @@
  * }
  */
 func isPalindrome(head *ListNode) bool {
-    arr := []int{}
-    curr := head
-    for curr != nil{
-        arr = append(arr,curr.Val)
-        curr = curr.Next
+    s := []int{}
+    slow := head
+    for slow != nil {
+        s = append(s, slow.Val)
+        slow = slow.Next
     }
-    l,r := 0,len(arr)-1
-    for l<=r{
-        if arr[l] != arr[r]{
+    fmt.Println(s)
+    for i,j := 0, len(s) - 1; i <= j; i,j = i+1, j-1 {
+        if s[i] != s[j] {
             return false
         }
-        l++
-        r--
     }
     return true
 }
