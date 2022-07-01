@@ -1,10 +1,17 @@
-func twoSum(numbers []int, target int) []int {
-    m := make(map[int]int)
-    for j,i := range numbers{
-        if _, ok := m[target-i]; ok{
-            return []int{m[target-i]+1,j+1}
-        }
-        m[i] = j
-    }
-    return []int{}
+func twoSum(nums []int, target int) []int {
+	left := 0
+	right := len(nums) - 1
+	for left < right {
+		sum := nums[left] + nums[right]
+		if sum == target {
+			return []int{left + 1, right + 1}
+		} else {
+			if sum > target {
+				right--
+			} else {
+				left++
+			}
+		}
+	}
+	return []int{}
 }
