@@ -7,18 +7,11 @@
  * }
  */
 func postorderTraversal(root *TreeNode) []int {
-     g := []int{}
-    iteration(root,&g)
-    return g
-}
-
-func iteration(root *TreeNode,g *[]int) {
-    if root == nil{
-        return
+    if root == nil {
+        return []int{}
     }
-   
-    iteration(root.Left,g)
-    iteration(root.Right,g)
-     *g = append(*g,root.Val)
-
+    if root.Left == nil && root.Right == nil {
+        return []int{root.Val}
+    }
+    return append(append(postorderTraversal(root.Left), postorderTraversal(root.Right)...), root.Val)
 }
