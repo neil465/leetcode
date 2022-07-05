@@ -7,14 +7,11 @@
  * }
  */
 func inorderTraversal(root *TreeNode) []int {
-    g := []int{}
-    
-    Inorder(root,&g)
-    return g
-}
-func Inorder(root *TreeNode,g *[]int){
-    if root == nil{return}
-    Inorder(root.Left,g)
-    *g = append(*g,root.Val)
-    Inorder(root.Right,g)
+    if root == nil {
+        return []int{}
+    }
+    if root.Left == nil && root.Right == nil {
+        return []int{root.Val}
+    }
+    return append(append(inorderTraversal(root.Left), root.Val), inorderTraversal(root.Right)...)
 }
