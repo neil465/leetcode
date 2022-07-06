@@ -7,35 +7,33 @@
  * }
  */
 func levelOrder(root *TreeNode) [][]int {
-    if root ==nil{
-        return nil
+    if root == nil {
+        return [][]int{}
     }
-    queue := []*TreeNode{root}    
-    res := [][]int{}
-    helper(root,&res,queue)
-    return res
-}
+    q := []*TreeNode{root}
+    result := [][]int{[]int{root.Val}}
+    
+    for len(q) > 0 {
+        temp := []int{}
+        n := len(q)
+        for i := 0 ; i < n ; i++{
+            p := q[0]
+            q = q[1:]
 
-func helper(root *TreeNode,result *[][]int,queue []*TreeNode){
-    if len(queue) == 0{return}
-    tempqueue := []*TreeNode{}
-    temp := []int{}
-    
-    for len(queue) > 0 {
-        pop := queue[0]
-        queue = queue[1:]
-        
-        if pop.Left != nil{
-            tempqueue = append(tempqueue,pop.Left)
+            if p.Left != nil {
+                q = append(q, p.Left)
+                temp = append(temp, p.Left.Val)
+            }
+            if p.Right != nil {
+                q = append(q, p.Right)
+                temp = append(temp, p.Right.Val)
+            }
         }
-        if pop.Right != nil{
-            tempqueue = append(tempqueue,pop.Right)
-        }  
-        temp = append(temp,pop.Val)
+        if len(temp) > 0 {
+            result = append(result, temp)
+        }
+        
     }
+    return result
     
-    *result = append(*result,temp)
-    queue = tempqueue
-    
-    helper(root,result,queue)
 }
