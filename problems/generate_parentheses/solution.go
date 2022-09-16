@@ -1,16 +1,19 @@
 func generateParenthesis(n int) []string {
-    return backtrack(n,0,0,"")
+    return find(n, n, "")
 }
-func backtrack(m, o, c int, s string ) []string{
-    if len(s) >= m * 2 {
-        return []string{s}
+func find(open, closed int, str string) []string {
+    if closed == 0 {
+        return []string{str}
     }
-    temp := []string{}
-    if o < m {
-        temp = append( temp, backtrack(m, o + 1, c, s + "(" )...)
+    
+    var res []string
+    
+    if open < closed {
+        res = append(res, find(open, closed - 1, str + ")")...)
+    } 
+    if open > 0 {
+        res = append(res, find(open - 1, closed, str + "(")...)
     }
-    if c < o {
-        temp = append( temp, backtrack(m, o , c + 1, s + ")" )...)
-    }
-    return temp
+    
+    return res
 }
