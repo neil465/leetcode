@@ -1,34 +1,21 @@
-type key struct {
-    y int
-    x int
+var board [][]int
+
+var directions = [][]int{[]int{0, 1}, []int{0, -1},[]int{1, 0},[]int{-1, 0}, []int{0, 0}}
+
+func floodFill(image [][]int, sr int, sc int, color int) [][]int {
+    board = image
+    change( sr, sc, color, map[[2]int]bool{})
+    return board
 }
 
-func floodFill(image [][]int, sr int, sc int, newColor int) [][]int {
-    if image[sr][sc] != newColor {
-        stack := []key{ key{sr, sc} }
-        val := image[sr][sc]
+func change(y , x, color int, visited map[[2]int]bool) {
 
-        for len(stack) != 0 {
-            pop := stack[len(stack) - 1]
-            stack = stack[:len(stack) - 1]
-
-            if pop.x > 0 && image[pop.y][pop.x - 1] == val {
-                stack = append(stack, key{ pop.y, pop.x - 1 })
-            }
-            if pop.x < len(image[0]) - 1 && image[pop.y][pop.x + 1] == val {
-                stack = append(stack, key{ pop.y, pop.x + 1 })
-            }
-
-            if pop.y > 0 && image[pop.y - 1][pop.x] == val {
-                stack = append(stack, key{ pop.y - 1, pop.x })
-            }
-            if pop.y < len(image) - 1 && image[pop.y + 1][pop.x] == val {
-                stack = append(stack, key{ pop.y + 1, pop.x })
-            }
-
-            image[pop.y][pop.x] = newColor
+    for _, i := range directions {
+        if y + i[1] >= 0 && y + i[1] < len(board) && x + i[0] >= 0 && x + i[0] < len(board[0]) && board[y + i[1]][ x + i[0]] == board[y][x] && !visited[[2]int{y + i[1], x + i[0]}]{
+                fmt.Println(board)
+            visited[[2]int{y + i[1], x + i[0]}]= true
+            change(y + i[1], x + i[0], color, visited)
+            board[y + i[1]][ x + i[0]] = color
         }
     }
-    
-    return image
 }
