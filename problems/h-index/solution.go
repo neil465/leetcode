@@ -1,13 +1,14 @@
 func hIndex(citations []int) int {
-    finder := map[int]int{}
-    maxCount := 0
-    for _, i := range citations {
-        for j := 0 ; j <= i; j++ {
-            finder[j] ++
-            if finder[j] == j && j > maxCount {
-                maxCount = j
-            }
+    sort.Slice(citations, func(i, j int) bool {
+        return citations[i] > citations[j]
+    })
+
+    for i := range citations {
+        if citations[i] >= i + 1 {
+            continue 
+        } else {
+            return i 
         }
     }
-    return maxCount
+    return len(citations)
 }
