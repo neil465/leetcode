@@ -12,6 +12,9 @@ func re(s1, s2 string) bool {
     if len(s1) == 1 {
         return s1 == s2
     }
+    if s1 == s2 {
+        return true
+    }
     v := false
     for i := 1; i < len(s1) ; i++ {
         if (re(s1[:i], s2[:i]) && re(s1[i:], s2[i:])) || (re(s1[i:], s2[:len(s2) - i]) && re(s1[:i], s2[len(s2) - i :])) {
