@@ -1,20 +1,22 @@
 func numberOfBeams(bank []string) int {
-    a := fmt.Sprint(len(bank[0]))
-    
-    s := fmt.Sprintf("%0"+a+"d", 0)
-    count := 0
-    rowbefore := 0
-    for _,i := range bank{
-        if i == s{
-            continue
+    c := []int{}
+    for i := range bank {
+        if bank[i] != strings.Repeat("0", len(bank[0])) {
+            curCount := 0 
+
+            for _, v := range bank[i] {
+                if v == '1' {
+                    curCount ++
+                }
+            }
+
+            c = append(c, curCount)
         }
-        row := 0
-        for _,j := range i{
-            if j == '1'{row++}
-        }
-        fmt.Println(row,rowbefore,s,i)
-        count += row*rowbefore
-        rowbefore = row
     }
-    return count
+    res := 0
+
+    for i := 1 ;i < len(c); i++ {
+        res += c[i - 1] * c[i]
+    }
+    return res
 }
