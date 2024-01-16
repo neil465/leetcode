@@ -1,19 +1,21 @@
 func calculateTime(keyboard string, word string) int {
-    res := 0
-    temp := ""
-    alphabets := make(map[string]int)
-    for j,i := range keyboard{
-        alphabets[string(i)] = j
+    m :=map[byte]int{}
+
+    for i :=range keyboard {
+        m[keyboard[i]] = i
     }
-    for _, i := range word{
-        res += abs(alphabets[string(i)]-alphabets[temp])
-        temp = string(i)
+
+    v := m[word[0]]
+    for i := 1; i< len(word); i++ {
+        v += abs(m[word[i]] - m[word[i - 1]])
     }
-    return res
+    return v
+
 }
-func abs(i int) int{
-    if i < 0{
-        return i * -1
+
+func abs(i int) int {
+    if i > 0 {
+        return i
     }
-    return i
+    return - i
 }
