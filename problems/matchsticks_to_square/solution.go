@@ -9,6 +9,9 @@ func makesquare(matchsticks []int) bool {
             return matchsticks[i] > matchsticks[j]
         
     })
+    if matchsticks[0] > sum / 4 {
+        return false
+    }
     // dp = map[int]bool{}
     return re(0,0,0,0,0, matchsticks, sum / 4)
 }
