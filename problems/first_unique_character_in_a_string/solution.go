@@ -1,25 +1,20 @@
+
+import "math"
 func firstUniqChar(s string) int {
-    arr := []string{}
-    mapper := make(map[string]int)
-    for _,i := range s{
-        mapper[string(i)]++
+    m := map[byte]int{}
+    ind := map[byte]int{}
+    for i := range s {
+        m[s[i]] ++
+        ind[s[i]] = i
     }
-    for k,i := range mapper{
-        if i == 1 {
-            arr = append(arr,k)
+    minimum := math.MaxInt32
+    for i := 0 ; i < 26 ;i ++ {
+        if val, ok := m[byte('a' + i)]; ok && val == 1 {
+            minimum = min(ind[byte('a' + i)], minimum)
         }
     }
-    if len(arr) == 0{
-        return -1
+    if minimum != math.MaxInt32 {
+        return minimum
     }
-    least := 1000000
-    for _,i2 := range arr {
-        for i,i3 := range s{
-            if string(i3) == i2 && i<least{
-                least = i
-                break
-            } 
-        }
-    }
-    return least
+    return -1
 }
