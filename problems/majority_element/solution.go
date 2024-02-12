@@ -1,12 +1,14 @@
 func majorityElement(nums []int) int {
-	mappy := make(map[int]int)
-	for _, num := range nums {
-		mappy[num]++
-	}
-	for i, i2 := range mappy {
-		if i2>len(nums)/2 {
-			return i
-		}
-	}
-	return 1
+    sum , num := 0,nums[0]
+    for i := 0 ; i < len(nums) ; i++{
+        if sum == 0 {
+            num = nums[i]
+        }
+        if nums[i] == num{
+            sum++
+        }else{
+            sum--
+        }
+    }
+    return num
 }
