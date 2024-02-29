@@ -12,12 +12,9 @@ func equalToDescendants(root *TreeNode) int {
 }
 func h(root *TreeNode) (int, int) {
     if root == nil { return 0, 0 }
-
     c1, v1 := h(root.Left)
     c2, v2 := h(root.Right)
-    if v1 + v2 == root.Val {
-        c1 ++
-    }
+    if v1 + v2 == root.Val { c1 ++ }
     return c1 + c2, v1 + v2 + root.Val
 
 }
