@@ -22,6 +22,6 @@ func gameResult(head *ListNode) string {
     } else if b > a {
         return "Odd"
     } 
-        return "Tie"
+    return "Tie"
     
 }
